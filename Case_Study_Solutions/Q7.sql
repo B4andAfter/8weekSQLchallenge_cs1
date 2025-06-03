@@ -3,13 +3,13 @@ WITH CTE AS(
 SELECT S.CustomerId,MAX(OrderDate) AS FirstBeforeJoin
 FROM DannysDiner.Sales S
 INNER JOIN DannysDiner.Members M
-ON (S.customer_id=M.customer_id)
+ON (S.CustomerId=M.CustomerId)
 WHERE JoinDate>OrderDate
-GROUP BY S.customer_id
+GROUP BY S.CustomerId
 )
-SELECT S.customer_id,FirstBeforeJoin,ProductName
+SELECT S.CustomerId,FirstBeforeJoin,ProductName
 FROM DannysDiner.Sales S
 INNER JOIN DannysDiner.Menu M
-ON (M.product_id=S.product_id)
+ON (M.ProductId=S.ProductId)
 INNER JOIN CTE C
-ON (C.customer_id=S.customer_id AND C.FirstBeforeJoin=OrderDate)
+ON (C.CustomerId=S.CustomerId AND C.FirstBeforeJoin=OrderDate)
