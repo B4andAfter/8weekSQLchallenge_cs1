@@ -10,7 +10,7 @@ CustomerMaxSales AS(
 	FROM CustomerTotalSales
 	GROUP BY CustomerId
 )
-SELECT c1.CustomerId,product_name,c2.MaxSales  
+SELECT c1.CustomerId,ProductName,c2.MaxSales  
 FROM CustomerTotalSales c1
 INNER JOIN CustomerMaxSales c2
 ON (c1.CustomerId=c2.CustomerId AND MaxSales=TotalSales)
