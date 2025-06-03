@@ -11,4 +11,4 @@ FROM DannysDiner.Sales S
 INNER JOIN CTE C
 ON (S.CustomerId=C.CustomerId AND FirstOrder=OrderDate) 
 INNER JOIN DannysDiner.Menu M
-ON (M.product_id =S.product_id)
+ON (M.ProductId =S.ProductId)
