@@ -2,30 +2,30 @@
 points on all items, not just sushi - how many points do customer A and B have at the end of January?*/
 
 
-WITH product_points AS(
+WITH ProductPoints AS(
 	SELECT 
-		product_id,
+		ProductId,
 		CASE
-			WHEN product_name = 'sushi' THEN 10*2*price
-			ELSE price*10
-		END AS points
+			WHEN ProductName = 'sushi' THEN 10*2*Price
+			ELSE Price*10
+		END AS Points
 	FROM DannysDiner.Menu
 ),
-product_points_first_week AS(
+ProductPointsFirstWeek AS(
 
 	SELECT
-		S.customer_id,
+		S.CustomerId,
 		CASE
-			WHEN DATEDIFF(WEEK,join_date,order_date) BETWEEN 0 AND 6 THEN points*2
+			WHEN DATEDIFF(WEEK,JoinDate,OrderDate) BETWEEN 0 AND 6 THEN Points*2
 			ELSE points
 		END AS points
-	FROM DannysDiner.Sales S LEFT JOIN product_points P
-	ON(S.product_id=P.product_id)
+	FROM DannysDiner.Sales S LEFT JOIN ProductPoints P
+	ON(S.ProductId=P.ProductId)
 	LEFT JOIN DannysDiner.Members M
-	ON (S.customer_id = M.customer_id)
+	ON (S.CustomerId = M.CustomerId)
 )
 
-SELECT customer_id,SUM(points) AS total_points
-FROM product_points_first_week
-WHERE customer_id IN ('A','B')
-GROUP BY customer_id
+SELECT CustomerId,SUM(Points) AS TotalPoints
+FROM ProdctPointsFirstWeek
+WHERE CustomerId IN ('A','B')
+GROUP BY CustomerId

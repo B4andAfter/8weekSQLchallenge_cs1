@@ -1,12 +1,12 @@
 --Which item was purchased first by the customer after they became a member?
 
 WITH CTE AS (
-	SELECT S.customer_id,product_id,order_date,join_date,RANK() OVER (PARTITION BY S.customer_id ORDER BY order_date) AS order_rank
+	SELECT S.CustomerId,ProductId,OrderDate,JoinDate,RANK() OVER (PARTITION BY S.CustomerId ORDER BY OrderDate) AS OrderRank
 	FROM DannysDiner.Sales S INNER JOIN DannysDiner.Members M
-	ON (S.customer_id=M.customer_id)
-	WHERE join_date <= order_date
+	ON (S.CustomerId=M.CustomerId)
+	WHERE JoinDate <= OrderDate
 )
-SELECT customer_id,order_date AS first_order_date,product_name
+SELECT CustomerId,OrderDate AS FirstOrderDate,ProductName
 FROM CTE C LEFT JOIN DannysDiner.Menu M
-ON(C.product_id=M.product_id)
-WHERE order_rank = 1;
+ON(C.ProductId=M.ProductId)
+WHERE OrderRank = 1;

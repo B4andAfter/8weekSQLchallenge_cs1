@@ -2,15 +2,15 @@
 
 WITH CTE AS(
 	SELECT 
-		product_id,
+		ProductId,
 		CASE
-			WHEN product_name = 'sushi' THEN 10*2*price
-			ELSE price*10
-		END AS points
+			WHEN ProductName = 'sushi' THEN 10*2*Price
+			ELSE Price*10
+		END AS Points
 	FROM DannysDiner.Menu
 )
 
-SELECT customer_id,SUM(points) AS total_points
+SELECT CustomerId,SUM(Points) AS TotalPoints
 FROM DannysDiner.Sales S INNER JOIN CTE C
-ON (S.product_id = C.product_id)
-GROUP BY customer_id
+ON (S.ProductId = C.ProductId)
+GROUP BY CustomerId
