@@ -1,33 +1,33 @@
 --Bonus Question 2: Rank All The Things
-WITH customer_orders AS (
+WITH CustomerOrders AS (
     SELECT
-        Sls.customer_id,
-        order_date,
-        product_name,
-        price,
+        Sls.CustomerId,
+        OrderDate,
+        ProductName,
+        Price,
         CASE
-            WHEN order_date >= join_date THEN 'Y'
+            WHEN OrderDate >= JoinDate THEN 'Y'
             ELSE 'N'
-        END AS member
+        END AS Member
     FROM DannysDiner.Sales Sls
     LEFT JOIN DannysDiner.Menu Mnu
-	ON (Sls.product_id = Mnu.product_id)
+	ON (Sls.ProductId = Mnu.ProductId)
     LEFT JOIN DannysDiner.Members Mbs
-	ON (Sls.customer_id = Mbs.customer_id)
+	ON (Sls.CustomerId = Mbs.CustomerId)
 )
 SELECT
-    customer_id,
-    order_date,
-    product_name,
-    price,
-    member,
+    CustomerId,
+    OrderDate,
+    ProductName,
+    Price,
+    Member,
     CASE
-        WHEN member = 'Y' THEN
+        WHEN Member = 'Y' THEN
             RANK() OVER (
-                PARTITION BY customer_id,member
-                ORDER BY order_date
+                PARTITION BY CustomerId,Member
+                ORDER BY OrderDate
             )
         ELSE NULL
-    END AS ranking
-FROM customer_orders
-ORDER BY customer_id, order_date;
+    END AS Ranking
+FROM CustomerOrders
+ORDER BY CustomerId, OrderDate;

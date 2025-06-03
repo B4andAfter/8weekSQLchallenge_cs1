@@ -1,17 +1,17 @@
 --Bonus Question 1:Join All The Things
 
 SELECT 
-	Sls.customer_id,
-	order_date,
-	product_name,
-	price,
+	Sls.CustomerId,
+	OrderDate,
+	ProductName,
+	Price,
 	CASE
-		WHEN (order_date <= join_date) AND (join_date IS NOT NULL) THEN 'Y'
+		WHEN (OrderDate <= JoinDate) AND (JoinDate IS NOT NULL) THEN 'Y'
 		ELSE 'N'
-	END AS member
+	END AS Member
 FROM DannysDiner.Sales Sls
 LEFT JOIN DannysDiner.Menu Mnu
-ON(Sls.product_id=Mnu.product_id)
+ON(Sls.ProductId=Mnu.ProductId)
 LEFT JOIN DannysDiner.Members Mbs
-ON(Sls.customer_id=Mbs.customer_id)
-ORDER BY customer_id,order_date
+ON(Sls.CustomerId=Mbs.CustomerId)
+ORDER BY CustomerId,OrderDate
