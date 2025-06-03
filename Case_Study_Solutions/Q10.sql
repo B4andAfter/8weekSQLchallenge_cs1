@@ -26,6 +26,6 @@ ProductPointsFirstWeek AS(
 )
 
 SELECT CustomerId,SUM(Points) AS TotalPoints
-FROM ProdctPointsFirstWeek
+FROM ProductPointsFirstWeek
 WHERE CustomerId IN ('A','B')
 GROUP BY CustomerId
